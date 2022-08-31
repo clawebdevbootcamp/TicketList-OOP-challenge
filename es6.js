@@ -1,7 +1,11 @@
 //Create Ticket class, we can pass 3 properties: title, assignee and description
 // hint: use constructor()
 class Ticket {
-  //...
+  constructor(title, assignee, description) {
+    this.title = title;
+    this.assignee = assignee;
+    this.description = description;
+  }
 }
 
 // Create UI class, we will use the UI class to manipulate the user interface (UI). Therefore, this must contain methods to add a ticket to the ticket list, delete a ticket from the list, clear all fields and lastly, a method to show an error or a success message (alert)
@@ -76,8 +80,13 @@ class UI {
 
 //Event Listening
 document.getElementById("ticket-form").addEventListener("submit", function (e) {
+  e.preventDefault();
   //Get form values (grab input values: title, assignee, description)
-  //...
+  const title = document.getElementById("title").value
+  const assignee = document.getElementById("assignee").value
+  const description = document.getElementById("description").value
+
+ 
 
   ////////Pro Tip:
   //An instance is an object containing data and behavior described by the class. The 'new' operator instantiates the class in JavaScript: instance = new Class()
@@ -85,34 +94,34 @@ document.getElementById("ticket-form").addEventListener("submit", function (e) {
   //const myUser = new User('Jane', 38); //new User() creates an instance of the User class with name and age as arguments.
 
   //Instantiate Ticket (new instance of Ticket class)
-  //...
+  const newTicket = new Ticket(title,assignee,description)
 
   //Instantiate UI
-  //...
+  const newUI = new UI()
 
   //Validate
   if (title === "" || assignee === "" || description === "") {
     //Show Error alert
-    //...
+    newUI.showAlert('Please fill in the field correctly', 'error')
   } else {
     //Add Ticket to list
-    //...
+    newUI.addTicketToList(newTicket)
     //show success
-    //...
+    newUI.showAlert('OK','success')
     // Clear Fields
-    //...
+    newUI.clearFields()
   }
 
-  e.preventDefault();
+
 });
 
 //Event listening for delete
 document.getElementById("ticket-list").addEventListener("click", function (e) {
   //Instantiate UI
-  //...
+  const ui = new UI()
 
   // Delete Ticket
-  //...
+ui.deleteTicket(e.target)
 
   e.preventDefault();
 });
