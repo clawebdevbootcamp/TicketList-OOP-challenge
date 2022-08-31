@@ -1,10 +1,15 @@
-//Create Ticket class, we can pass 3 properties: title, assignee and description
+//C reate Ticket class, we can pass 3 properties: title, assignee and description
 // hint: use constructor()
 class Ticket {
-  //...
+  constructor (title, assignee, description){
+    this.title = title
+    this.assignee = assignee
+    this.description = description
+  }
 }
 
-// Create UI class, we will use the UI class to manipulate the user interface (UI). Therefore, this must contain methods to add a ticket to the ticket list, delete a ticket from the list, clear all fields and lastly, a method to show an error or a success message (alert)
+// Create UI class, we will use the UI class to manipulate the user interface (UI). 
+//Therefore, this must contain methods to add a ticket to the ticket list, delete a ticket from the list, clear all fields and lastly, a method to show an error or a success message (alert)
 //addTicketToList(ticket){}
 //deleteTicket(target){}
 //showAlert(message,className){}
@@ -74,45 +79,50 @@ class UI {
   }
 }
 
+
 //Event Listening
 document.getElementById("ticket-form").addEventListener("submit", function (e) {
+  
   //Get form values (grab input values: title, assignee, description)
-  //...
+  let title = document.getElementById("title").value
+  let assignee = document.getElementById("assignee").value
+  let description = document.getElementById("description").value
 
   ////////Pro Tip:
   //An instance is an object containing data and behavior described by the class. The 'new' operator instantiates the class in JavaScript: instance = new Class()
   //Example:
   //const myUser = new User('Jane', 38); //new User() creates an instance of the User class with name and age as arguments.
-
+    
   //Instantiate Ticket (new instance of Ticket class)
-  //...
+  const ticket = new Ticket(title, assignee, description)
+
 
   //Instantiate UI
-  //...
+  const ui = new UI();
 
   //Validate
   if (title === "" || assignee === "" || description === "") {
     //Show Error alert
-    //...
+    ui.showAlert("Some of the fields are empty", "error")
   } else {
     //Add Ticket to list
-    //...
+    ui.addTicketToList(ticket)
     //show success
-    //...
+    ui.showAlert("Your ticket was successfully added", "success")
     // Clear Fields
-    //...
+    ui.clearFields()
   }
-
+  
   e.preventDefault();
 });
 
 //Event listening for delete
 document.getElementById("ticket-list").addEventListener("click", function (e) {
   //Instantiate UI
-  //...
+  const uii = new UI();
 
   // Delete Ticket
-  //...
+  uii.deleteTicket(e.target); 
 
   e.preventDefault();
 });
