@@ -1,0 +1,32 @@
+.success, .error {
+    color: white;
+    padding: 5px;
+    margin: 5px 0 15px 0;
+}
+
+.success{
+    background: green;
+}
+
+.error{
+    background: red;
+}
+.container {
+    margin: 2rem auto;
+    max-width: 760px;
+}
+input {
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    padding: .4rem;
+    box-sizing: border-box;
+}
+
+tbody {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+}
