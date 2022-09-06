@@ -2,6 +2,15 @@
 // hint: use constructor()
 class Ticket {
   //...
+  title 
+  assignee
+  description
+
+  constructor (title, assignee, description){
+    this.title = title
+    this.assignee = assignee
+    this.description = description
+  }
 }
 
 // Create UI class, we will use the UI class to manipulate the user interface (UI). Therefore, this must contain methods to add a ticket to the ticket list, delete a ticket from the list, clear all fields and lastly, a method to show an error or a success message (alert)
@@ -15,15 +24,12 @@ class UI {
     const list = document.getElementById("ticket-list");
     // create new row => const row = document.createElement('tr')
     const row = document.createElement("tr");
-
     //Adding data to the newly created row
     row.innerHTML = `
-          
           <td>${ticket.title}</td>
           <td>${ticket.assignee}</td>
           <td>${ticket.description}</td>
           <td><a href="" class="delete">X</a></td>
-  
           `;
     //Adding the row to the ticket-list with all data included
     list.appendChild(row);
@@ -53,7 +59,7 @@ class UI {
       document.querySelector(".alert").remove();
     }, 3000);
   }
-
+  
   deleteTicket(target) {
 
     //Check if the element we are passing as arguemnet (target) contains the class 'delete'
@@ -78,7 +84,12 @@ class UI {
 document.getElementById("ticket-form").addEventListener("submit", function (e) {
   //Get form values (grab input values: title, assignee, description)
   //...
-
+  const title = document.getElementById('title').value
+  const assignee = document.getElementById('assignee').value
+  const description = document.getElementById('description').value
+  
+  
+  
   ////////Pro Tip:
   //An instance is an object containing data and behavior described by the class. The 'new' operator instantiates the class in JavaScript: instance = new Class()
   //Example:
@@ -86,21 +97,29 @@ document.getElementById("ticket-form").addEventListener("submit", function (e) {
 
   //Instantiate Ticket (new instance of Ticket class)
   //...
-
+  const newTicket = new Ticket(`${title}`,`${assignee}`, `${description}`)
+  console.log('initialsing ticket : ',newTicket)
   //Instantiate UI
   //...
-
+  const iniClass = new UI(newTicket)
   //Validate
   if (title === "" || assignee === "" || description === "") {
     //Show Error alert
     //...
+    // const red = `class = 'color: red'`
+    iniClass.showAlert('All fields must be filled', 'error')
   } else {
     //Add Ticket to list
     //...
+    iniClass.addTicketToList(newTicket)
+
     //show success
     //...
+    iniClass.showAlert('Ticket added', 'success')
+
     // Clear Fields
     //...
+    iniClass.clearFields()
   }
 
   e.preventDefault();
@@ -110,9 +129,10 @@ document.getElementById("ticket-form").addEventListener("submit", function (e) {
 document.getElementById("ticket-list").addEventListener("click", function (e) {
   //Instantiate UI
   //...
-
+  const toBeDeleted = new UI()
   // Delete Ticket
   //...
-
+  toBeDeleted.deleteTicket(e.target)
+  
   e.preventDefault();
 });
